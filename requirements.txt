@@ -1,0 +1,8 @@
+flask
+flask-restful
+requests
+exifread
+python-forecastio
+google-api-python-client
+Flask-JSON
+flask_sqlalchemy

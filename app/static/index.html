@@ -1,0 +1,93 @@
+<html lang="en">
+    <head>
+        <title>Project-Delta</title>
+        <link rel="stylesheet" href="/static/css/style.css" />
+        <link rel="stylesheet" href="/static/css/weather-icons.css" />
+        <link rel="stylesheet" href="/static/bower_components/angular-loading-bar/build/loading-bar.min.css" />
+
+        <meta name="google" value="notranslate">
+        <meta http-equiv="refresh" content="14400">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    </head>
+
+    <body ng-app="ProjectDeltaApp">
+        <div id="wrapper" ng-controller="MainController">
+
+            <header class="translucent-top header-transparent">
+                <div id="date" style="padding: 15px 20px; float: left;">
+                    <div class="date">{{date}}</div>
+                    <div class="time large bright">{{time}}<span class="sec">{{seconds}}</span></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div id="calendar">
+                    <table id="calendar-table">
+                        <tbody>
+                            <tr>
+                                <td style="padding: 15px 15px 0 15px; border-left: 1px solid rgba(255,255,255,.1); line-height: 1.5em; vertical-align: top" ng-repeat="day in calendar.days">
+                                    <div class="day">{{day[0].start.dateTime|date:'dd-MM-yyyy'}}</div>
+                                    <ul>
+                                        <li ng-repeat="item in day"><span class="bright">{{item.start.dateTime|date:'HH:mm'}} {{item.summary}}</span></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </header>
+
+            <div id="img-info" style="position: absolute; right: 0; top: 30%; z-index: 1000; text-align: right; padding: 15px; line-height: .8em;background:rgba(0,0,0,.3);" class="translucent">
+                <div id="img-title" class="xxsmall">{{background.album}}</div>
+                <div id="img-owner" class="xxsmall">
+                    <span class="dark">Photo</span>
+                    <span class="dark">by {{background.taken_by}} </span>
+                    <span class="dark">taken </span>
+                    <span>{{background.date_taken*1000|date:'dd-MM-yyyy'}}</span>
+                </div>
+            </div>
+
+            <div id="content" class="fill">
+
+                <!--<div id="background-underlay-1" class="background-underlay" ng-style="{'background-image':'url({{background.url}})'}"></div>-->
+                <div id="background-underlay-1" style="height: 100%; position: relative; top: 0px; display: block; z-index: 1; background: url('{{background.url}}') 100% 100% / cover no-repeat fixed;"></div>
+                <div id="background-underlay-2" style="height: 100%; position: relative; top: 0px; z-index: 0; display: none; background: none;"></div>
+            </div>
+
+            <footer id="weather" class="translucent-bottom">
+                <table style="width: 100%">
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0 20px 0 20px; width: 250px;">
+                                <div class="bright large">{{weather.currently.temperature|number:0}}<sup>&deg;</sup>
+                                    <span class="wi wi-forecast-io-{{weather.currently.icon}}" style="font-size: 70px;" title=""></span>
+                                </div>
+                                <div style="margin-top: -5px;">
+                                    <span class="wi wi-strong-wind"></span>{{weather.currently.windspeed|number:0}} {{weather.currently.windDirection}} &nbsp;
+                                    <span class="wi wi-{{weather.currently.sunset_or_sunrise}}"></span>{{weather.currently.sunset_or_sunrise_time}}
+                                </div>
+                                <div style="font-size: 10px; color: rgba(255,255,255,0.25); padding-top: 5px;">Laatst geupdate {{weather.last_update}}
+                                </div>
+                            </td>
+
+                            <td style="padding: 0px 40px 0px 40px; text-align: center; border-left: 1px solid rgba(255,255,255,.1); line-height: 1.6em;" ng-repeat="daily in weather.daily.data">
+                                <div class="day">{{daily.time*1000|date:'dd-MM-yyyy'}}</div>
+                                <span class="wi wi-forecast-io-{{daily.icon}} bright medium"></span><br>
+                                <span class="bright" style="margin: 0 10px;">{{daily.temperatureMin|number:0}}<sup>&deg;</sup></span>
+                                <span class="bright" style="margin: 0 10px;">{{daily.temperatureMax|number:0}}<sup>&deg;</sup></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </footer>
+        </div>
+        <!--<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>-->
+        <script type="text/javascript" src="/static/bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="/static/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+        <script type="text/javascript" src="/static/bower_components/ng-file-upload/ng-file-upload.js"></script>
+
+        <script type="text/javascript" src="/static/app.js"></script>
+        <script type="text/javascript" src="/static/controllers/main.js"></script>
+        <script type="text/javascript" src="/static/directives/clock.js"></script>
+    </body>
+</html>
