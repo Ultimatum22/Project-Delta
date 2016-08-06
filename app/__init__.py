@@ -39,4 +39,4 @@ def not_found(error):
 
 # Build the database:
 # This will create the database file using SQLAlchemy
-db.create_all()
+# db.create_all()
